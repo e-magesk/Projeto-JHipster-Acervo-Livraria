@@ -2,15 +2,15 @@
   "acervoLivrariaApp": {
     "edicao": {
       "home": {
-        "title": "Edicaos",
+        "title": "Edicoes",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Edicao",
+        "createLabel": "Criar nova Edicao",
         "createOrEditLabel": "Criar ou editar Edicao",
-        "notFound": "Nenhum Edicao encontrado"
+        "notFound": "Nenhuma Edicao encontrada"
       },
-      "created": "Um novo Edicao foi criado com o identificador {{ param }}",
-      "updated": "Um Edicao foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Edicao foi excluído com o identificador {{ param }}",
+      "created": "Uma nova Edicao foi criada com o identificador {{ param }}",
+      "updated": "Uma Edicao foi atualizada com o identificador {{ param }}",
+      "deleted": "Uma Edicao foi excluída com o identificador {{ param }}",
       "delete": {
         "question": "Tem certeza de que deseja excluir Edicao {{ id }}?"
       },

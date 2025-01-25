@@ -61,9 +61,6 @@ export class CompraUpdateComponent implements OnInit {
 
   onPrecoChange(event: Event): void {
     const preco = (event.target as HTMLInputElement).value;
-    console.log('==============================================');
-    console.log('Novo valor:', preco);
-    console.log('==============================================');
     if (this.editForm.get('quantidade') !== null) {
       let quantidade = this.editForm.get('quantidade')!.value;
       if (quantidade === null || quantidade === undefined) {

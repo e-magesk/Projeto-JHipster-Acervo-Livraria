@@ -6,11 +6,11 @@
         "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo Compra",
         "createOrEditLabel": "Criar ou editar Compra",
-        "notFound": "Nenhum Compra encontrado"
+        "notFound": "Nenhuma Compra encontrada"
       },
-      "created": "Um novo Compra foi criado com o identificador {{ param }}",
-      "updated": "Um Compra foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Compra foi excluído com o identificador {{ param }}",
+      "created": "Uma nova Compra foi criada com o identificador {{ param }}",
+      "updated": "Uma Compra foi atualizada com o identificador {{ param }}",
+      "deleted": "Uma Compra foi excluída com o identificador {{ param }}",
       "delete": {
         "question": "Tem certeza de que deseja excluir Compra {{ id }}?"
       },
@@ -19,8 +19,8 @@
       },
       "id": "ID",
       "quantidade": "Quantidade",
-      "precoCompra": "Preco Compra",
-      "valorTotal": "Valor Total",
+      "precoCompra": "Preco Compra Unidade (R$)",
+      "valorTotal": "Valor Total (R$)",
       "edicao": "Edicao"
     }
   }

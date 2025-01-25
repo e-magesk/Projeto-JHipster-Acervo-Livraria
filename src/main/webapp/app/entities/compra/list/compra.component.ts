@@ -14,7 +14,6 @@ import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SORT } from 'app/config/navigati
 import { ICompra } from '../compra.model';
 import { CompraService, EntityArrayResponseType } from '../service/compra.service';
 import { CompraDeleteDialogComponent } from '../delete/compra-delete-dialog.component';
-import { IEdicao } from '../../edicao/edicao.model';
 import { EdicaoService } from '../../edicao/service/edicao.service';
 
 @Component({

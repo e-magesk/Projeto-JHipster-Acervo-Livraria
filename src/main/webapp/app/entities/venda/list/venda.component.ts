@@ -14,6 +14,7 @@ import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SORT } from 'app/config/navigati
 import { IVenda } from '../venda.model';
 import { EntityArrayResponseType, VendaService } from '../service/venda.service';
 import { VendaDeleteDialogComponent } from '../delete/venda-delete-dialog.component';
+import { EdicaoService } from '../../edicao/service/edicao.service';
 
 @Component({
   selector: 'jhi-venda',
@@ -33,6 +34,7 @@ export class VendaComponent implements OnInit {
 
   public readonly router = inject(Router);
   protected readonly vendaService = inject(VendaService);
+  protected readonly edicaoService = inject(EdicaoService);
   protected readonly activatedRoute = inject(ActivatedRoute);
   protected readonly sortService = inject(SortService);
   protected modalService = inject(NgbModal);
@@ -86,7 +88,27 @@ export class VendaComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
-    this.vendas.set(dataFromBody);
+    const vendas: IVenda[] = [];
+    let cont = 0;
+    dataFromBody.forEach(venda => {
+      if (venda.edicao !== null) {
+        this.edicaoService.find(venda.edicao!.id).subscribe(edicao => {
+          cont++;
+          const aux = edicao.body;
+          venda.edicao = aux;
+          vendas.push(venda);
+          if (cont === dataFromBody.length) {
+            this.vendas.set(vendas);
+          }
+        });
+      } else {
+        cont++;
+        vendas.push(venda);
+        if (cont === dataFromBody.length) {
+          this.vendas.set(vendas);
+        }
+      }
+    });
   }
 
   protected fillComponentAttributesFromResponseBody(data: IVenda[] | null): IVenda[] {

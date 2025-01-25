@@ -43,7 +43,9 @@
 
         @let precoCompraRef = editForm.get('precoCompra')!;
         <div class="mb-3">
-          <label class="form-label" for="field_precoCompra" jhiTranslate="acervoLivrariaApp.compra.precoCompra">Preco Compra</label>
+          <label class="form-label" for="field_precoCompra" jhiTranslate="acervoLivrariaApp.compra.precoCompra"
+            >Preco Compra Unidade(R$)</label
+          >
           <input
             type="number"
             class="form-control"
@@ -69,7 +71,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_valorTotal" jhiTranslate="acervoLivrariaApp.compra.valorTotal">Valor Total</label>
+          <label class="form-label" for="field_valorTotal" jhiTranslate="acervoLivrariaApp.compra.valorTotal">Valor Total (R$)</label>
           <input
             type="number"
             class="form-control"
@@ -77,6 +79,7 @@
             id="field_valorTotal"
             data-cy="valorTotal"
             formControlName="valorTotal"
+            readonly
           />
         </div>
 

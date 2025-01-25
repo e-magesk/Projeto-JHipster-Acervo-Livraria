@@ -4,13 +4,13 @@
       "home": {
         "title": "Vendas",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Venda",
+        "createLabel": "Criar nova Venda",
         "createOrEditLabel": "Criar ou editar Venda",
-        "notFound": "Nenhum Venda encontrado"
+        "notFound": "Nenhuma Venda encontrada"
       },
-      "created": "Um novo Venda foi criado com o identificador {{ param }}",
-      "updated": "Um Venda foi atualizado com o identificador {{ param }}",
-      "deleted": "Um Venda foi excluído com o identificador {{ param }}",
+      "created": "Uma novo Venda foi criada com o identificador {{ param }}",
+      "updated": "Uma Venda foi atualizada com o identificador {{ param }}",
+      "deleted": "Uma Venda foi excluída com o identificador {{ param }}",
       "delete": {
         "question": "Tem certeza de que deseja excluir Venda {{ id }}?"
       },
@@ -19,8 +19,8 @@
       },
       "id": "ID",
       "quantidade": "Quantidade",
-      "precoVenda": "Preco Venda",
-      "valorTotal": "Valor Total",
+      "precoVenda": "Preco Venda Unidade (R$)",
+      "valorTotal": "Valor Total (R$)",
       "edicao": "Edicao"
     }
   }

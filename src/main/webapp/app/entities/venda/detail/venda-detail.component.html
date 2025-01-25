@@ -19,11 +19,11 @@
           <dd>
             <span>{{ vendaRef.quantidade }}</span>
           </dd>
-          <dt><span jhiTranslate="acervoLivrariaApp.venda.precoVenda">Preco Venda</span></dt>
+          <dt><span jhiTranslate="acervoLivrariaApp.venda.precoVenda">Preco Venda Unidade(R$)</span></dt>
           <dd>
             <span>{{ vendaRef.precoVenda }}</span>
           </dd>
-          <dt><span jhiTranslate="acervoLivrariaApp.venda.valorTotal">Valor Total</span></dt>
+          <dt><span jhiTranslate="acervoLivrariaApp.venda.valorTotal">Valor Total (R$)</span></dt>
           <dd>
             <span>{{ vendaRef.valorTotal }}</span>
           </dd>
@@ -31,7 +31,9 @@
           <dd>
             @if (venda()!.edicao) {
               <div>
-                <a [routerLink]="['/edicao', venda()!.edicao?.id, 'view']">{{ vendaRef.edicao?.id }}</a>
+                <a [routerLink]="['/edicao', venda()!.edicao?.id, 'view']">{{
+                  vendaRef.edicao?.id + ' - ' + vendaRef.edicao?.editora + ' - ' + vendaRef.edicao?.livro?.titulo
+                }}</a>
               </div>
             }
           </dd>
