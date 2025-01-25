@@ -41,6 +41,26 @@
           }
         </div>
 
+        <div class="mb-3">
+          <label class="form-label" for="field_edicao" jhiTranslate="acervoLivrariaApp.venda.edicao">Edicao</label>
+          <select
+            class="form-control"
+            id="field_edicao"
+            data-cy="edicao"
+            name="edicao"
+            formControlName="edicao"
+            [compareWith]="compareEdicao"
+            (change)="updatePreco()"
+          >
+            <option [ngValue]="null"></option>
+            @for (edicaoOption of edicaosSharedCollection; track $index) {
+              <option [ngValue]="edicaoOption">
+                {{ edicaoOption.id + ' - ' + edicaoOption.editora + ' - ' + edicaoOption.livro?.titulo }}
+              </option>
+            }
+          </select>
+        </div>
+
         @let precoVendaRef = editForm.get('precoVenda')!;
         <div class="mb-3">
           <label class="form-label" for="field_precoVenda" jhiTranslate="acervoLivrariaApp.venda.precoVenda">Preco Venda Unidade(R$)</label>
@@ -51,7 +71,7 @@
             id="field_precoVenda"
             data-cy="precoVenda"
             formControlName="precoVenda"
-            (input)="onPrecoChange($event)"
+            readonly
           />
           @if (precoVendaRef.invalid && (precoVendaRef.dirty || precoVendaRef.touched)) {
             <div>
@@ -79,25 +99,6 @@
             formControlName="valorTotal"
             readonly
           />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_edicao" jhiTranslate="acervoLivrariaApp.venda.edicao">Edicao</label>
-          <select
-            class="form-control"
-            id="field_edicao"
-            data-cy="edicao"
-            name="edicao"
-            formControlName="edicao"
-            [compareWith]="compareEdicao"
-          >
-            <option [ngValue]="null"></option>
-            @for (edicaoOption of edicaosSharedCollection; track $index) {
-              <option [ngValue]="edicaoOption">
-                {{ edicaoOption.id + ' - ' + edicaoOption.editora + ' - ' + edicaoOption.livro?.titulo }}
-              </option>
-            }
-          </select>
         </div>
       </div>
 

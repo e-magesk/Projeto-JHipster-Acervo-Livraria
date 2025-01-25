@@ -58,7 +58,7 @@
         </div>
 
         @let quantidadeExemplaresRef = editForm.get('quantidadeExemplares')!;
-        <div class="mb-3">
+        <div class="mb-3" *ngIf="edicao?.id !== null">
           <label class="form-label" for="field_quantidadeExemplares" jhiTranslate="acervoLivrariaApp.edicao.quantidadeExemplares"
             >Quantidade Exemplares</label
           >

@@ -61,17 +61,27 @@ export class VendaUpdateComponent implements OnInit {
     }
   }
 
-  onPrecoChange(event: Event): void {
-    const preco = (event.target as HTMLInputElement).value;
+  onPrecoChange(): void {
+    let preco = this.editForm.get('precoVenda')?.value;
+    if (preco === null || preco === undefined) {
+      preco = 0;
+    }
     if (this.editForm.get('quantidade') !== null) {
       let quantidade = this.editForm.get('quantidade')!.value;
       if (quantidade === null || quantidade === undefined) {
         quantidade = 0;
       }
       this.editForm.patchValue({
-        valorTotal: quantidade * parseFloat(preco),
+        valorTotal: quantidade * preco,
       });
     }
+  }
+
+  updatePreco(): void {
+    this.editForm.patchValue({
+      precoVenda: this.editForm.get('edicao')?.value?.preco,
+    });
+    this.onPrecoChange();
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IVenda>>): void {
