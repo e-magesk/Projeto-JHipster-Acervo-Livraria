@@ -51,6 +51,7 @@
             id="field_precoCompra"
             data-cy="precoCompra"
             formControlName="precoCompra"
+            (input)="onPrecoChange($event)"
           />
           @if (precoCompraRef.invalid && (precoCompraRef.dirty || precoCompraRef.touched)) {
             <div>
@@ -91,7 +92,9 @@
           >
             <option [ngValue]="null"></option>
             @for (edicaoOption of edicaosSharedCollection; track $index) {
-              <option [ngValue]="edicaoOption">{{ edicaoOption.id }}</option>
+              <option [ngValue]="edicaoOption">
+                {{ edicaoOption.id + ' - ' + edicaoOption.editora + ' - ' + edicaoOption.livro?.titulo }}
+              </option>
             }
           </select>
         </div>

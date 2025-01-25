@@ -14,6 +14,8 @@ import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SORT } from 'app/config/navigati
 import { ICompra } from '../compra.model';
 import { CompraService, EntityArrayResponseType } from '../service/compra.service';
 import { CompraDeleteDialogComponent } from '../delete/compra-delete-dialog.component';
+import { IEdicao } from '../../edicao/edicao.model';
+import { EdicaoService } from '../../edicao/service/edicao.service';
 
 @Component({
   selector: 'jhi-compra',
@@ -33,6 +35,7 @@ export class CompraComponent implements OnInit {
 
   public readonly router = inject(Router);
   protected readonly compraService = inject(CompraService);
+  protected readonly edicaoService = inject(EdicaoService);
   protected readonly activatedRoute = inject(ActivatedRoute);
   protected readonly sortService = inject(SortService);
   protected modalService = inject(NgbModal);
@@ -86,7 +89,27 @@ export class CompraComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
-    this.compras.set(dataFromBody);
+    const compras: ICompra[] = [];
+    let cont = 0;
+    dataFromBody.forEach(compra => {
+      if (compra.edicao !== null) {
+        this.edicaoService.find(compra.edicao!.id).subscribe(edicao => {
+          cont++;
+          const aux = edicao.body;
+          compra.edicao = aux;
+          compras.push(compra);
+          if (cont === dataFromBody.length) {
+            this.compras.set(compras);
+          }
+        });
+      } else {
+        cont++;
+        compras.push(compra);
+        if (cont === dataFromBody.length) {
+          this.compras.set(compras);
+        }
+      }
+    });
   }
 
   protected fillComponentAttributesFromResponseBody(data: ICompra[] | null): ICompra[] {

@@ -31,7 +31,9 @@
           <dd>
             @if (compra()!.edicao) {
               <div>
-                <a [routerLink]="['/edicao', compra()!.edicao?.id, 'view']">{{ compraRef.edicao?.id }}</a>
+                <a [routerLink]="['/edicao', compra()!.edicao?.id, 'view']">{{
+                  compraRef.edicao?.id + ' - ' + compraRef.edicao?.editora + ' - ' + compraRef.edicao?.livro?.titulo
+                }}</a>
               </div>
             }
           </dd>
