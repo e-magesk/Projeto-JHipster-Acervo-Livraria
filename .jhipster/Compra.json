@@ -1,0 +1,34 @@
+{
+  "annotations": {
+    "changelogDate": "20250125045631"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "quantidade",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "precoCompra",
+      "fieldType": "Float",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorTotal",
+      "fieldType": "Float"
+    }
+  ],
+  "name": "Compra",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "edicao",
+      "relationshipName": "edicao",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

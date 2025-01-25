@@ -1,0 +1,27 @@
+{
+  "acervoLivrariaApp": {
+    "livro": {
+      "home": {
+        "title": "Livros",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Livro",
+        "createOrEditLabel": "Criar ou editar Livro",
+        "notFound": "Nenhum Livro encontrado"
+      },
+      "created": "Um novo Livro foi criado com o identificador {{ param }}",
+      "updated": "Um Livro foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Livro foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Livro {{ id }}?"
+      },
+      "detail": {
+        "title": "Livro"
+      },
+      "id": "ID",
+      "titulo": "Titulo",
+      "genero": "Genero",
+      "edicao": "Edicao",
+      "autor": "Autor"
+    }
+  }
+}

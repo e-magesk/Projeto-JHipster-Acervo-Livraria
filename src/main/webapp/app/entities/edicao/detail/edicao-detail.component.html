@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (edicao(); as edicaoRef) {
+      <div>
+        <h2 data-cy="edicaoDetailsHeading"><span jhiTranslate="acervoLivrariaApp.edicao.detail.title">Edicao</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ edicaoRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.edicao.editora">Editora</span></dt>
+          <dd>
+            <span>{{ edicaoRef.editora }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.edicao.dataLancamento">Data Lancamento</span></dt>
+          <dd>
+            <span>{{ edicaoRef.dataLancamento | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.edicao.quantidadeExemplares">Quantidade Exemplares</span></dt>
+          <dd>
+            <span>{{ edicaoRef.quantidadeExemplares }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.edicao.preco">Preco</span></dt>
+          <dd>
+            <span>{{ edicaoRef.preco }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.edicao.posicao">Posicao</span></dt>
+          <dd>
+            @if (edicao()!.posicao) {
+              <div>
+                <a [routerLink]="['/posicao', edicao()!.posicao?.id, 'view']">{{ edicaoRef.posicao?.codigo }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.edicao.livro">Livro</span></dt>
+          <dd>
+            @if (edicao()!.livro) {
+              <div>
+                <a [routerLink]="['/livro', edicao()!.livro?.id, 'view']">{{ edicaoRef.livro?.titulo }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/edicao', edicaoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

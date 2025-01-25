@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (venda(); as vendaRef) {
+      <div>
+        <h2 data-cy="vendaDetailsHeading"><span jhiTranslate="acervoLivrariaApp.venda.detail.title">Venda</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ vendaRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.venda.quantidade">Quantidade</span></dt>
+          <dd>
+            <span>{{ vendaRef.quantidade }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.venda.precoVenda">Preco Venda</span></dt>
+          <dd>
+            <span>{{ vendaRef.precoVenda }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.venda.valorTotal">Valor Total</span></dt>
+          <dd>
+            <span>{{ vendaRef.valorTotal }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.venda.edicao">Edicao</span></dt>
+          <dd>
+            @if (venda()!.edicao) {
+              <div>
+                <a [routerLink]="['/edicao', venda()!.edicao?.id, 'view']">{{ vendaRef.edicao?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/venda', vendaRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

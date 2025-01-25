@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Edicao.
+    -->
+    <changeSet id="20250125045627-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="posicao_id"
+                                 baseTableName="edicao"
+                                 constraintName="fk_edicao__posicao_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="posicao"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="livro_id"
+                                 baseTableName="edicao"
+                                 constraintName="fk_edicao__livro_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="livro"
+                                 />
+    </changeSet>
+</databaseChangeLog>

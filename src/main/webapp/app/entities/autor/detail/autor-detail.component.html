@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (autor(); as autorRef) {
+      <div>
+        <h2 data-cy="autorDetailsHeading"><span jhiTranslate="acervoLivrariaApp.autor.detail.title">Autor</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ autorRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.autor.nome">Nome</span></dt>
+          <dd>
+            <span>{{ autorRef.nome }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.autor.nacionalidade">Nacionalidade</span></dt>
+          <dd>
+            <span [jhiTranslate]="'acervoLivrariaApp.Nacionalidade.' + (autorRef.nacionalidade ?? 'null')">{{
+              {
+                null: '',
+                ALEMANHA: 'ALEMANHA',
+                BRASIL: 'BRASIL',
+                CHILE: 'CHILE',
+                DINAMARCA: 'DINAMARCA',
+                FRANCA: 'FRANCA',
+                INGLATERRA: 'INGLATERRA',
+              }[autorRef.nacionalidade ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.autor.livro">Livro</span></dt>
+          <dd>
+            @if (autor()!.livro) {
+              <div>
+                <a [routerLink]="['/livro', autor()!.livro?.id, 'view']">{{ autorRef.livro?.titulo }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/autor', autorRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

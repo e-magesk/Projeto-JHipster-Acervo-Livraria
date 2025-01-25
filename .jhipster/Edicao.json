@@ -1,0 +1,49 @@
+{
+  "annotations": {
+    "changelogDate": "20250125045627"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "editora",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dataLancamento",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "quantidadeExemplares",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "preco",
+      "fieldType": "Float",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Edicao",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "codigo",
+      "otherEntityName": "posicao",
+      "relationshipName": "posicao",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "titulo",
+      "otherEntityName": "livro",
+      "otherEntityRelationshipName": "edicao",
+      "relationshipName": "livro",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,13 @@
+{
+  "acervoLivrariaApp": {
+    "Genero": {
+      "null": "",
+      "INFANTIL": "INFANTIL",
+      "TERROR": "TERROR",
+      "FANTASIA": "FANTASIA",
+      "ROMANCE": "ROMANCE",
+      "BIOGRAFIA": "BIOGRAFIA",
+      "AUTOAJUDA": "AUTOAJUDA"
+    }
+  }
+}

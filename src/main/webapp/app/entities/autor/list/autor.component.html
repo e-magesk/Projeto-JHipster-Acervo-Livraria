@@ -1,0 +1,136 @@
+<div>
+  <h2 id="page-heading" data-cy="AutorHeading">
+    <span jhiTranslate="acervoLivrariaApp.autor.home.title">Autors</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="acervoLivrariaApp.autor.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-autor"
+        [routerLink]="['/autor/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="acervoLivrariaApp.autor.home.createLabel">Criar novo Autor</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (autors().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="acervoLivrariaApp.autor.home.notFound">Nenhum Autor encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nome">
+              <div class="d-flex">
+                <span jhiTranslate="acervoLivrariaApp.autor.nome">Nome</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nacionalidade">
+              <div class="d-flex">
+                <span jhiTranslate="acervoLivrariaApp.autor.nacionalidade">Nacionalidade</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="livro.titulo">
+              <div class="d-flex">
+                <span jhiTranslate="acervoLivrariaApp.autor.livro">Livro</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (autor of autors(); track trackId(autor)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/autor', autor.id, 'view']">{{ autor.id }}</a>
+              </td>
+              <td>{{ autor.nome }}</td>
+              <td [jhiTranslate]="'acervoLivrariaApp.Nacionalidade.' + (autor.nacionalidade ?? 'null')">
+                {{
+                  {
+                    null: '',
+                    ALEMANHA: 'ALEMANHA',
+                    BRASIL: 'BRASIL',
+                    CHILE: 'CHILE',
+                    DINAMARCA: 'DINAMARCA',
+                    FRANCA: 'FRANCA',
+                    INGLATERRA: 'INGLATERRA',
+                  }[autor.nacionalidade ?? 'null']
+                }}
+              </td>
+              <td>
+                @if (autor.livro) {
+                  <div>
+                    <a [routerLink]="['/livro', autor.livro.id, 'view']">{{ autor.livro.titulo }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/autor', autor.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/autor', autor.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(autor)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (autors().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

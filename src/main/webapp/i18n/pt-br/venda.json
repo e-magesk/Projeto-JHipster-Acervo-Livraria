@@ -1,0 +1,27 @@
+{
+  "acervoLivrariaApp": {
+    "venda": {
+      "home": {
+        "title": "Vendas",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Venda",
+        "createOrEditLabel": "Criar ou editar Venda",
+        "notFound": "Nenhum Venda encontrado"
+      },
+      "created": "Um novo Venda foi criado com o identificador {{ param }}",
+      "updated": "Um Venda foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Venda foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Venda {{ id }}?"
+      },
+      "detail": {
+        "title": "Venda"
+      },
+      "id": "ID",
+      "quantidade": "Quantidade",
+      "precoVenda": "Preco Venda",
+      "valorTotal": "Valor Total",
+      "edicao": "Edicao"
+    }
+  }
+}

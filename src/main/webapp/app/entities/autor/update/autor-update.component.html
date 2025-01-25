@@ -1,0 +1,67 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-autor-heading" data-cy="AutorCreateUpdateHeading" jhiTranslate="acervoLivrariaApp.autor.home.createOrEditLabel">
+        Criar ou editar Autor
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="acervoLivrariaApp.autor.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nome" jhiTranslate="acervoLivrariaApp.autor.nome">Nome</label>
+          <input type="text" class="form-control" name="nome" id="field_nome" data-cy="nome" formControlName="nome" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nacionalidade" jhiTranslate="acervoLivrariaApp.autor.nacionalidade">Nacionalidade</label>
+          <select
+            class="form-control"
+            name="nacionalidade"
+            formControlName="nacionalidade"
+            id="field_nacionalidade"
+            data-cy="nacionalidade"
+          >
+            <option [ngValue]="null">{{ 'acervoLivrariaApp.Nacionalidade.null' | translate }}</option>
+            @for (nacionalidade of nacionalidadeValues; track $index) {
+              <option [value]="nacionalidade">{{ 'acervoLivrariaApp.Nacionalidade.' + nacionalidade | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_livro" jhiTranslate="acervoLivrariaApp.autor.livro">Livro</label>
+          <select class="form-control" id="field_livro" data-cy="livro" name="livro" formControlName="livro" [compareWith]="compareLivro">
+            <option [ngValue]="null"></option>
+            @for (livroOption of livrosSharedCollection; track $index) {
+              <option [ngValue]="livroOption">{{ livroOption.titulo }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

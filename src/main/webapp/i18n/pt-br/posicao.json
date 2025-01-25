@@ -1,0 +1,25 @@
+{
+  "acervoLivrariaApp": {
+    "posicao": {
+      "home": {
+        "title": "Posicaos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Posicao",
+        "createOrEditLabel": "Criar ou editar Posicao",
+        "notFound": "Nenhum Posicao encontrado"
+      },
+      "created": "Um novo Posicao foi criado com o identificador {{ param }}",
+      "updated": "Um Posicao foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Posicao foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Posicao {{ id }}?"
+      },
+      "detail": {
+        "title": "Posicao"
+      },
+      "id": "ID",
+      "codigo": "Codigo",
+      "edicao": "Edicao"
+    }
+  }
+}

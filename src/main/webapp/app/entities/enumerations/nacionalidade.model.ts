@@ -1,0 +1,13 @@
+export enum Nacionalidade {
+  ALEMANHA = 'ALEMANHA',
+
+  BRASIL = 'BRASIL',
+
+  CHILE = 'CHILE',
+
+  DINAMARCA = 'DINAMARCA',
+
+  FRANCA = 'FRANCA',
+
+  INGLATERRA = 'INGLATERRA',
+}

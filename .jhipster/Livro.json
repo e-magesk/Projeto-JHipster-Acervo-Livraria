@@ -1,0 +1,38 @@
+{
+  "annotations": {
+    "changelogDate": "20250125045626"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "titulo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "genero",
+      "fieldType": "Genero",
+      "fieldValues": "INFANTIL,TERROR,FANTASIA,ROMANCE,BIOGRAFIA,AUTOAJUDA"
+    }
+  ],
+  "name": "Livro",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "edicao",
+      "otherEntityRelationshipName": "livro",
+      "relationshipName": "edicao",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "autor",
+      "otherEntityRelationshipName": "livro",
+      "relationshipName": "autor",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

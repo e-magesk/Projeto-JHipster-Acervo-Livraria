@@ -1,0 +1,19 @@
+{
+  "annotations": {
+    "changelogDate": "20250125045629"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "codigo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "pattern"],
+      "fieldValidateRulesPattern": "^[A-Z][0-9]\\-[0-9]+\\-[a-z][0-9]+$"
+    }
+  ],
+  "name": "Posicao",
+  "pagination": "infinite-scroll",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

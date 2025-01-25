@@ -1,0 +1,132 @@
+<div>
+  <h2 id="page-heading" data-cy="CompraHeading">
+    <span jhiTranslate="acervoLivrariaApp.compra.home.title">Compras</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="acervoLivrariaApp.compra.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-compra"
+        [routerLink]="['/compra/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="acervoLivrariaApp.compra.home.createLabel">Criar novo Compra</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (compras().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="acervoLivrariaApp.compra.home.notFound">Nenhum Compra encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quantidade">
+              <div class="d-flex">
+                <span jhiTranslate="acervoLivrariaApp.compra.quantidade">Quantidade</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="precoCompra">
+              <div class="d-flex">
+                <span jhiTranslate="acervoLivrariaApp.compra.precoCompra">Preco Compra</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="valorTotal">
+              <div class="d-flex">
+                <span jhiTranslate="acervoLivrariaApp.compra.valorTotal">Valor Total</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="edicao.id">
+              <div class="d-flex">
+                <span jhiTranslate="acervoLivrariaApp.compra.edicao">Edicao</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (compra of compras(); track trackId(compra)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/compra', compra.id, 'view']">{{ compra.id }}</a>
+              </td>
+              <td>{{ compra.quantidade }}</td>
+              <td>{{ compra.precoCompra }}</td>
+              <td>{{ compra.valorTotal }}</td>
+              <td>
+                @if (compra.edicao) {
+                  <div>
+                    <a [routerLink]="['/edicao', compra.edicao.id, 'view']">{{ compra.edicao.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/compra', compra.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/compra', compra.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(compra)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (compras().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

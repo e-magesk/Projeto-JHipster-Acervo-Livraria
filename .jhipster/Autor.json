@@ -1,0 +1,31 @@
+{
+  "annotations": {
+    "changelogDate": "20250125045628"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nacionalidade",
+      "fieldType": "Nacionalidade",
+      "fieldValues": "ALEMANHA,BRASIL,CHILE,DINAMARCA,FRANCA,INGLATERRA"
+    }
+  ],
+  "name": "Autor",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "titulo",
+      "otherEntityName": "livro",
+      "otherEntityRelationshipName": "autor",
+      "relationshipName": "livro",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

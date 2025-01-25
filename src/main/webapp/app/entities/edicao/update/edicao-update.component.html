@@ -1,0 +1,149 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-edicao-heading" data-cy="EdicaoCreateUpdateHeading" jhiTranslate="acervoLivrariaApp.edicao.home.createOrEditLabel">
+        Criar ou editar Edicao
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="acervoLivrariaApp.edicao.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let editoraRef = editForm.get('editora')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_editora" jhiTranslate="acervoLivrariaApp.edicao.editora">Editora</label>
+          <input type="text" class="form-control" name="editora" id="field_editora" data-cy="editora" formControlName="editora" />
+          @if (editoraRef.invalid && (editoraRef.dirty || editoraRef.touched)) {
+            <div>
+              @if (editForm.get('editora')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let dataLancamentoRef = editForm.get('dataLancamento')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dataLancamento" jhiTranslate="acervoLivrariaApp.edicao.dataLancamento"
+            >Data Lancamento</label
+          >
+          <div class="input-group">
+            <input
+              id="field_dataLancamento"
+              data-cy="dataLancamento"
+              type="text"
+              class="form-control"
+              name="dataLancamento"
+              ngbDatepicker
+              #dataLancamentoDp="ngbDatepicker"
+              formControlName="dataLancamento"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dataLancamentoDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          @if (dataLancamentoRef.invalid && (dataLancamentoRef.dirty || dataLancamentoRef.touched)) {
+            <div>
+              @if (editForm.get('dataLancamento')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let quantidadeExemplaresRef = editForm.get('quantidadeExemplares')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_quantidadeExemplares" jhiTranslate="acervoLivrariaApp.edicao.quantidadeExemplares"
+            >Quantidade Exemplares</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="quantidadeExemplares"
+            id="field_quantidadeExemplares"
+            data-cy="quantidadeExemplares"
+            formControlName="quantidadeExemplares"
+          />
+          @if (quantidadeExemplaresRef.invalid && (quantidadeExemplaresRef.dirty || quantidadeExemplaresRef.touched)) {
+            <div>
+              @if (editForm.get('quantidadeExemplares')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('quantidadeExemplares')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let precoRef = editForm.get('preco')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_preco" jhiTranslate="acervoLivrariaApp.edicao.preco">Preco</label>
+          <input type="number" class="form-control" name="preco" id="field_preco" data-cy="preco" formControlName="preco" />
+          @if (precoRef.invalid && (precoRef.dirty || precoRef.touched)) {
+            <div>
+              @if (editForm.get('preco')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('preco')?.errors?.number" jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_posicao" jhiTranslate="acervoLivrariaApp.edicao.posicao">Posicao</label>
+          <select
+            class="form-control"
+            id="field_posicao"
+            data-cy="posicao"
+            name="posicao"
+            formControlName="posicao"
+            [compareWith]="comparePosicao"
+          >
+            <option [ngValue]="null"></option>
+            @for (posicaoOption of posicaosCollection; track $index) {
+              <option [ngValue]="posicaoOption">{{ posicaoOption.codigo }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_livro" jhiTranslate="acervoLivrariaApp.edicao.livro">Livro</label>
+          <select class="form-control" id="field_livro" data-cy="livro" name="livro" formControlName="livro" [compareWith]="compareLivro">
+            <option [ngValue]="null"></option>
+            @for (livroOption of livrosSharedCollection; track $index) {
+              <option [ngValue]="livroOption">{{ livroOption.titulo }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
