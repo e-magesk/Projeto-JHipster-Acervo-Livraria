@@ -1,11 +1,14 @@
 package org.jhipster.acervolivraria.service.impl;
 
 import java.util.Optional;
+import org.jhipster.acervolivraria.domain.Autor;
 import org.jhipster.acervolivraria.domain.Livro;
 import org.jhipster.acervolivraria.repository.LivroRepository;
+import org.jhipster.acervolivraria.service.AutorService;
 import org.jhipster.acervolivraria.service.LivroService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,9 @@ public class LivroServiceImpl implements LivroService {
     private static final Logger LOG = LoggerFactory.getLogger(LivroServiceImpl.class);
 
     private final LivroRepository livroRepository;
+
+    @Autowired
+    private AutorService autorService;
 
     public LivroServiceImpl(LivroRepository livroRepository) {
         this.livroRepository = livroRepository;
@@ -78,6 +84,11 @@ public class LivroServiceImpl implements LivroService {
     @Override
     public void delete(Long id) {
         LOG.debug("Request to delete Livro : {}", id);
+        Livro livro = livroRepository.findById(id).get();
+        for (Autor autor : livro.getAutors()) {
+            autor.getLivros().remove(livro);
+            this.autorService.update(autor);
+        }
         livroRepository.deleteById(id);
     }
 }

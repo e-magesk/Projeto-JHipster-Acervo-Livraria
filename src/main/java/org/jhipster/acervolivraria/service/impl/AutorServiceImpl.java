@@ -88,6 +88,11 @@ public class AutorServiceImpl implements AutorService {
     @Override
     public void delete(Long id) {
         LOG.debug("Request to delete Autor : {}", id);
+        Autor autor = autorRepository.findById(id).get();
+        for (Livro livro : autor.getLivros()) {
+            livro.getAutors().remove(autor);
+            livroRepository.save(livro);
+        }
         autorRepository.deleteById(id);
     }
 }
