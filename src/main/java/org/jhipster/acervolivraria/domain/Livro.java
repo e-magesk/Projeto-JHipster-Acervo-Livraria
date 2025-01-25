@@ -133,6 +133,7 @@ public class Livro implements Serializable {
 
     public Livro addAutor(Autor autor) {
         this.autors.add(autor);
+        autor.getLivros().add(this);
         return this;
     }
 
