@@ -76,6 +76,7 @@ public class AutorResource {
      * or with status {@code 500 (Internal Server Error)} if the autor couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @Transactional
     @PutMapping("/{id}")
     public ResponseEntity<Autor> updateAutor(@PathVariable(value = "id", required = false) final Long id, @RequestBody Autor autor)
         throws URISyntaxException {

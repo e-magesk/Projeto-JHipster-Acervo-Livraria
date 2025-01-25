@@ -14,7 +14,6 @@ import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SORT } from 'app/config/navigati
 import { IAutor } from '../autor.model';
 import { AutorService, EntityArrayResponseType } from '../service/autor.service';
 import { AutorDeleteDialogComponent } from '../delete/autor-delete-dialog.component';
-import { ILivro } from '../../livro/livro.model';
 
 @Component({
   selector: 'jhi-autor',

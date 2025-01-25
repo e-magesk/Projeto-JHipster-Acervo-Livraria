@@ -2,10 +2,13 @@ package org.jhipster.acervolivraria.service.impl;
 
 import java.util.Optional;
 import org.jhipster.acervolivraria.domain.Autor;
+import org.jhipster.acervolivraria.domain.Livro;
 import org.jhipster.acervolivraria.repository.AutorRepository;
+import org.jhipster.acervolivraria.repository.LivroRepository;
 import org.jhipster.acervolivraria.service.AutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,9 @@ public class AutorServiceImpl implements AutorService {
 
     private final AutorRepository autorRepository;
 
+    @Autowired
+    private LivroRepository livroRepository;
+
     public AutorServiceImpl(AutorRepository autorRepository) {
         this.autorRepository = autorRepository;
     }
@@ -35,6 +41,14 @@ public class AutorServiceImpl implements AutorService {
     @Override
     public Autor update(Autor autor) {
         LOG.debug("Request to update Autor : {}", autor);
+        Autor aux = autorRepository.getOne(autor.getId());
+        for (Livro livro : aux.getLivros()) {
+            autor.addLivro(livro);
+        }
+        for (Livro livro : autor.getLivros()) {
+            livro.addAutor(autor);
+            livroRepository.save(livro);
+        }
         return autorRepository.save(autor);
     }
 
