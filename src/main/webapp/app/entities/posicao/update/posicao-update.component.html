@@ -25,9 +25,20 @@
                 <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
               }
               @if (editForm.get('codigo')?.errors?.pattern) {
-                <small class="form-text text-danger" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Codigo' }"
-                  >Este campo deve estar dentro do seguinte padrão Codigo.</small
+                <small class="form-text text-danger"
+                  >Este campo deve estar dentro do seguinte padrão: Secao-Estante-SubSecao. Sendo que:</small
                 >
+                <br />
+                <small class="form-text text-danger"><strong>Secao - </strong> Uma letra maiúscula seguida de um digito,</small>
+                <br />
+                <small class="form-text text-danger"><strong>Estante - </strong> Uma sequência numérica,</small>
+                <br />
+                <small class="form-text text-danger"
+                  ><strong>Subsecao - </strong> Uma letra minúscula seguida de uma sequência numérica,</small
+                >
+                <br />
+                <small class="form-text text-danger">Exemplo : A5-689-b58</small>
+                <br />
               }
             </div>
           }
