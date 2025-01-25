@@ -50,7 +50,8 @@ enum Nacionalidade {
     CHILE,
     DINAMARCA,
     FRANCA,
-    INGLATERRA
+    INGLATERRA,
+    ESTADOS_UNIDOS
 }
 
 relationship OneToMany {

@@ -10,4 +10,6 @@ export enum Nacionalidade {
   FRANCA = 'FRANCA',
 
   INGLATERRA = 'INGLATERRA',
+
+  ESTADOS_UNIDOS = 'ESTADOS_UNIDOS',
 }
