@@ -42,6 +42,14 @@ public interface LivroService {
     Page<Livro> findAll(Pageable pageable);
 
     /**
+     * Get all the livros with eager load of many-to-many relationships.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<Livro> findAllWithEagerRelationships(Pageable pageable);
+
+    /**
      * Get the "id" livro.
      *
      * @param id the id of the entity.

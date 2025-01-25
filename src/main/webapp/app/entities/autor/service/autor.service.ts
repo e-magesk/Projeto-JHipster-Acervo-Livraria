@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IAutor, NewAutor } from '../autor.model';
+import { ILivro } from '../../livro/livro.model';
 
 export type PartialUpdateAutor = Partial<IAutor> & Pick<IAutor, 'id'>;
 
@@ -46,6 +47,10 @@ export class AutorService {
 
   getAutorIdentifier(autor: Pick<IAutor, 'id'>): number {
     return autor.id;
+  }
+
+  getAutorLivros(id: number): Observable<ILivro[]> {
+    return this.http.get<ILivro[]>(`${this.resourceUrl}/${id}/livros`);
   }
 
   compareAutor(o1: Pick<IAutor, 'id'> | null, o2: Pick<IAutor, 'id'> | null): boolean {

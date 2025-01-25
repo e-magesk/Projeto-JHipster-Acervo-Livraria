@@ -40,9 +40,10 @@ public class Livro implements Serializable {
     @JsonIgnoreProperties(value = { "posicao", "livro" }, allowSetters = true)
     private Set<Edicao> edicaos = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "livro")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "rel_livro__autor", joinColumns = @JoinColumn(name = "livro_id"), inverseJoinColumns = @JoinColumn(name = "autor_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "livro" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "livros" }, allowSetters = true)
     private Set<Autor> autors = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -122,12 +123,6 @@ public class Livro implements Serializable {
     }
 
     public void setAutors(Set<Autor> autors) {
-        if (this.autors != null) {
-            this.autors.forEach(i -> i.setLivro(null));
-        }
-        if (autors != null) {
-            autors.forEach(i -> i.setLivro(this));
-        }
         this.autors = autors;
     }
 
@@ -138,13 +133,11 @@ public class Livro implements Serializable {
 
     public Livro addAutor(Autor autor) {
         this.autors.add(autor);
-        autor.setLivro(this);
         return this;
     }
 
     public Livro removeAutor(Autor autor) {
         this.autors.remove(autor);
-        autor.setLivro(null);
         return this;
     }
 

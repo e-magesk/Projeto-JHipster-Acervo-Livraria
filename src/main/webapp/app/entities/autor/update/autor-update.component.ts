@@ -6,7 +6,6 @@ import { finalize, map } from 'rxjs/operators';
 
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { ILivro } from 'app/entities/livro/livro.model';
 import { LivroService } from 'app/entities/livro/service/livro.service';
 import { Nacionalidade } from 'app/entities/enumerations/nacionalidade.model';
@@ -40,7 +39,10 @@ export class AutorUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ autor }) => {
       this.autor = autor;
       if (autor) {
-        this.updateForm(autor);
+        this.autorService.getAutorLivros(autor.id).subscribe((livros: ILivro[]) => {
+          autor.livros = livros;
+          this.updateForm(autor);
+        });
       }
 
       this.loadRelationshipsOptions();
@@ -84,14 +86,19 @@ export class AutorUpdateComponent implements OnInit {
     this.autor = autor;
     this.autorFormService.resetForm(this.editForm, autor);
 
-    this.livrosSharedCollection = this.livroService.addLivroToCollectionIfMissing<ILivro>(this.livrosSharedCollection, autor.livro);
+    this.livrosSharedCollection = this.livroService.addLivroToCollectionIfMissing<ILivro>(
+      this.livrosSharedCollection,
+      ...(autor.livros ?? []),
+    );
   }
 
   protected loadRelationshipsOptions(): void {
     this.livroService
       .query()
       .pipe(map((res: HttpResponse<ILivro[]>) => res.body ?? []))
-      .pipe(map((livros: ILivro[]) => this.livroService.addLivroToCollectionIfMissing<ILivro>(livros, this.autor?.livro)))
-      .subscribe((livros: ILivro[]) => (this.livrosSharedCollection = livros));
+      .pipe(map((livros: ILivro[]) => this.livroService.addLivroToCollectionIfMissing<ILivro>(livros, ...(this.autor?.livros ?? []))))
+      .subscribe((livros: ILivro[]) => {
+        this.livrosSharedCollection = livros;
+      });
   }
 }

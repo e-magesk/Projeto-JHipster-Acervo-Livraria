@@ -64,15 +64,11 @@ public class AutorServiceImpl implements AutorService {
         return autorRepository.findAll(pageable);
     }
 
-    public Page<Autor> findAllWithEagerRelationships(Pageable pageable) {
-        return autorRepository.findAllWithEagerRelationships(pageable);
-    }
-
     @Override
     @Transactional(readOnly = true)
     public Optional<Autor> findOne(Long id) {
         LOG.debug("Request to get Autor : {}", id);
-        return autorRepository.findOneWithEagerRelationships(id);
+        return autorRepository.findById(id);
     }
 
     @Override

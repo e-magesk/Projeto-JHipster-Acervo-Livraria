@@ -15,7 +15,7 @@ describe('Compra e2e test', () => {
   const compraPageUrlPattern = new RegExp('/compra(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  const compraSample = { quantidade: 19695, precoCompra: 29938.24 };
+  const compraSample = { quantidade: 26330, precoCompra: 24234.46 };
 
   let compra;
 
@@ -160,14 +160,14 @@ describe('Compra e2e test', () => {
     });
 
     it('should create an instance of Compra', () => {
-      cy.get(`[data-cy="quantidade"]`).type('21969');
-      cy.get(`[data-cy="quantidade"]`).should('have.value', '21969');
+      cy.get(`[data-cy="quantidade"]`).type('18767');
+      cy.get(`[data-cy="quantidade"]`).should('have.value', '18767');
 
-      cy.get(`[data-cy="precoCompra"]`).type('14063');
-      cy.get(`[data-cy="precoCompra"]`).should('have.value', '14063');
+      cy.get(`[data-cy="precoCompra"]`).type('21809.57');
+      cy.get(`[data-cy="precoCompra"]`).should('have.value', '21809.57');
 
-      cy.get(`[data-cy="valorTotal"]`).type('6767.95');
-      cy.get(`[data-cy="valorTotal"]`).should('have.value', '6767.95');
+      cy.get(`[data-cy="valorTotal"]`).type('10074.15');
+      cy.get(`[data-cy="valorTotal"]`).should('have.value', '10074.15');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

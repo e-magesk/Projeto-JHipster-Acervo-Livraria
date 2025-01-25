@@ -14,12 +14,13 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type LivroFormGroupInput = ILivro | PartialWithRequiredKeyOf<NewLivro>;
 
-type LivroFormDefaults = Pick<NewLivro, 'id'>;
+type LivroFormDefaults = Pick<NewLivro, 'id' | 'autors'>;
 
 type LivroFormGroupContent = {
   id: FormControl<ILivro['id'] | NewLivro['id']>;
   titulo: FormControl<ILivro['titulo']>;
   genero: FormControl<ILivro['genero']>;
+  autors: FormControl<ILivro['autors']>;
 };
 
 export type LivroFormGroup = FormGroup<LivroFormGroupContent>;
@@ -43,6 +44,7 @@ export class LivroFormService {
         validators: [Validators.required],
       }),
       genero: new FormControl(livroRawValue.genero),
+      autors: new FormControl(livroRawValue.autors ?? []),
     });
   }
 
@@ -63,6 +65,7 @@ export class LivroFormService {
   private getFormDefaults(): LivroFormDefaults {
     return {
       id: null,
+      autors: [],
     };
   }
 }

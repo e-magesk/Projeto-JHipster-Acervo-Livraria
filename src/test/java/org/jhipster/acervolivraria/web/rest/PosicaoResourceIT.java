@@ -32,8 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class PosicaoResourceIT {
 
-    private static final String DEFAULT_CODIGO = "Y4-899-e6107";
-    private static final String UPDATED_CODIGO = "T4-4-q862051";
+    private static final String DEFAULT_CODIGO = "X9-7860-d54";
+    private static final String UPDATED_CODIGO = "Q0-960-r688";
 
     private static final String ENTITY_API_URL = "/api/posicaos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -269,8 +269,6 @@ class PosicaoResourceIT {
         // Update the posicao using partial update
         Posicao partialUpdatedPosicao = new Posicao();
         partialUpdatedPosicao.setId(posicao.getId());
-
-        partialUpdatedPosicao.codigo(UPDATED_CODIGO);
 
         restPosicaoMockMvc
             .perform(

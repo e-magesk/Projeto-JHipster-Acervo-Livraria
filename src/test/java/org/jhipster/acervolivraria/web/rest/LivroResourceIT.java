@@ -4,22 +4,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.jhipster.acervolivraria.domain.LivroAsserts.*;
 import static org.jhipster.acervolivraria.web.rest.TestUtil.createUpdateProxyForBean;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.jhipster.acervolivraria.IntegrationTest;
 import org.jhipster.acervolivraria.domain.Livro;
 import org.jhipster.acervolivraria.domain.enumeration.Genero;
 import org.jhipster.acervolivraria.repository.LivroRepository;
+import org.jhipster.acervolivraria.service.LivroService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link LivroResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class LivroResourceIT {
@@ -50,6 +59,12 @@ class LivroResourceIT {
 
     @Autowired
     private LivroRepository livroRepository;
+
+    @Mock
+    private LivroRepository livroRepositoryMock;
+
+    @Mock
+    private LivroService livroServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -163,6 +178,23 @@ class LivroResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(livro.getId().intValue())))
             .andExpect(jsonPath("$.[*].titulo").value(hasItem(DEFAULT_TITULO)))
             .andExpect(jsonPath("$.[*].genero").value(hasItem(DEFAULT_GENERO.toString())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllLivrosWithEagerRelationshipsIsEnabled() throws Exception {
+        when(livroServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restLivroMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(livroServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllLivrosWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(livroServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restLivroMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(livroRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test

@@ -64,11 +64,15 @@ public class LivroServiceImpl implements LivroService {
         return livroRepository.findAll(pageable);
     }
 
+    public Page<Livro> findAllWithEagerRelationships(Pageable pageable) {
+        return livroRepository.findAllWithEagerRelationships(pageable);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public Optional<Livro> findOne(Long id) {
         LOG.debug("Request to get Livro : {}", id);
-        return livroRepository.findById(id);
+        return livroRepository.findOneWithEagerRelationships(id);
     }
 
     @Override

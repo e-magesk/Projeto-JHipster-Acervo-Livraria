@@ -15,7 +15,7 @@ describe('Livro e2e test', () => {
   const livroPageUrlPattern = new RegExp('/livro(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  const livroSample = { titulo: 'wear cornet boo' };
+  const livroSample = { titulo: 'whoa' };
 
   let livro;
 
@@ -160,8 +160,8 @@ describe('Livro e2e test', () => {
     });
 
     it('should create an instance of Livro', () => {
-      cy.get(`[data-cy="titulo"]`).type('in mmm');
-      cy.get(`[data-cy="titulo"]`).should('have.value', 'in mmm');
+      cy.get(`[data-cy="titulo"]`).type('westernize');
+      cy.get(`[data-cy="titulo"]`).should('have.value', 'westernize');
 
       cy.get(`[data-cy="genero"]`).select('TERROR');
 

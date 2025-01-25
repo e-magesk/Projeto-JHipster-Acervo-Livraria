@@ -14,13 +14,13 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type AutorFormGroupInput = IAutor | PartialWithRequiredKeyOf<NewAutor>;
 
-type AutorFormDefaults = Pick<NewAutor, 'id'>;
+type AutorFormDefaults = Pick<NewAutor, 'id' | 'livros'>;
 
 type AutorFormGroupContent = {
   id: FormControl<IAutor['id'] | NewAutor['id']>;
   nome: FormControl<IAutor['nome']>;
   nacionalidade: FormControl<IAutor['nacionalidade']>;
-  livro: FormControl<IAutor['livro']>;
+  livros: FormControl<IAutor['livros']>;
 };
 
 export type AutorFormGroup = FormGroup<AutorFormGroupContent>;
@@ -42,7 +42,7 @@ export class AutorFormService {
       ),
       nome: new FormControl(autorRawValue.nome),
       nacionalidade: new FormControl(autorRawValue.nacionalidade),
-      livro: new FormControl(autorRawValue.livro),
+      livros: new FormControl(autorRawValue.livros ?? []),
     });
   }
 
@@ -63,6 +63,7 @@ export class AutorFormService {
   private getFormDefaults(): AutorFormDefaults {
     return {
       id: null,
+      livros: [],
     };
   }
 }

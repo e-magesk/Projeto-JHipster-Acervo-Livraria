@@ -60,6 +60,6 @@ public class AutorAsserts {
     public static void assertAutorUpdatableRelationshipsEquals(Autor expected, Autor actual) {
         assertThat(expected)
             .as("Verify Autor relationships")
-            .satisfies(e -> assertThat(e.getLivro()).as("check livro").isEqualTo(actual.getLivro()));
+            .satisfies(e -> assertThat(e.getLivros()).as("check livros").isEqualTo(actual.getLivros()));
     }
 }

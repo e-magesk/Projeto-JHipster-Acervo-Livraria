@@ -296,7 +296,7 @@ class CompraResourceIT {
         Compra partialUpdatedCompra = new Compra();
         partialUpdatedCompra.setId(compra.getId());
 
-        partialUpdatedCompra.quantidade(UPDATED_QUANTIDADE);
+        partialUpdatedCompra.precoCompra(UPDATED_PRECO_COMPRA).valorTotal(UPDATED_VALOR_TOTAL);
 
         restCompraMockMvc
             .perform(

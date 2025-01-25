@@ -58,6 +58,8 @@ public class LivroAsserts {
      * @param actual the actual entity
      */
     public static void assertLivroUpdatableRelationshipsEquals(Livro expected, Livro actual) {
-        // empty method
+        assertThat(expected)
+            .as("Verify Livro relationships")
+            .satisfies(e -> assertThat(e.getAutors()).as("check autors").isEqualTo(actual.getAutors()));
     }
 }

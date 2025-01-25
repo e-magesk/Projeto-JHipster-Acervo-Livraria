@@ -22,7 +22,7 @@ describe('Autor Form Service', () => {
             id: expect.any(Object),
             nome: expect.any(Object),
             nacionalidade: expect.any(Object),
-            livro: expect.any(Object),
+            livros: expect.any(Object),
           }),
         );
       });
@@ -35,7 +35,7 @@ describe('Autor Form Service', () => {
             id: expect.any(Object),
             nome: expect.any(Object),
             nacionalidade: expect.any(Object),
-            livro: expect.any(Object),
+            livros: expect.any(Object),
           }),
         );
       });

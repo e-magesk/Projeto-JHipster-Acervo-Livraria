@@ -33,6 +33,15 @@
               }[livroRef.genero ?? 'null']
             }}</span>
           </dd>
+          <dt><span jhiTranslate="acervoLivrariaApp.livro.autor">Autor</span></dt>
+          <dd>
+            @for (autor of livroRef.autors; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/autor', autor.id, 'view']">{{ autor?.nome }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

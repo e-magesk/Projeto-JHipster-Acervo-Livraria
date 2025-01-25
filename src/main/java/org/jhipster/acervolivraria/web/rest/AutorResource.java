@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import org.jhipster.acervolivraria.domain.Autor;
+import org.jhipster.acervolivraria.domain.Livro;
 import org.jhipster.acervolivraria.repository.AutorRepository;
 import org.jhipster.acervolivraria.service.AutorService;
 import org.jhipster.acervolivraria.web.rest.errors.BadRequestAlertException;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -133,21 +135,12 @@ public class AutorResource {
      * {@code GET  /autors} : get all the autors.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of autors in body.
      */
     @GetMapping("")
-    public ResponseEntity<List<Autor>> getAllAutors(
-        @org.springdoc.core.annotations.ParameterObject Pageable pageable,
-        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
-    ) {
+    public ResponseEntity<List<Autor>> getAllAutors(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
         LOG.debug("REST request to get a page of Autors");
-        Page<Autor> page;
-        if (eagerload) {
-            page = autorService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = autorService.findAll(pageable);
-        }
+        Page<Autor> page = autorService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -163,6 +156,17 @@ public class AutorResource {
         LOG.debug("REST request to get Autor : {}", id);
         Optional<Autor> autor = autorService.findOne(id);
         return ResponseUtil.wrapOrNotFound(autor);
+    }
+
+    @Transactional
+    @GetMapping("/{id}/livros")
+    public ResponseEntity<List<Livro>> getLivros(@PathVariable("id") Long id) {
+        LOG.debug("REST request to get Autor Livros : {}", id);
+        Optional<Autor> autor = autorService.findOne(id);
+        if (autor.isPresent()) {
+            return ResponseEntity.ok().body(autor.get().getLivros().stream().toList());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     /**

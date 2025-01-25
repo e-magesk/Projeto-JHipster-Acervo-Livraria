@@ -23,7 +23,7 @@
       "otherEntityRelationshipName": "autor",
       "relationshipName": "livro",
       "relationshipSide": "right",
-      "relationshipType": "many-to-one"
+      "relationshipType": "many-to-many"
     }
   ],
   "searchEngine": "no",

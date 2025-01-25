@@ -160,10 +160,10 @@ describe('Autor e2e test', () => {
     });
 
     it('should create an instance of Autor', () => {
-      cy.get(`[data-cy="nome"]`).type('drat barring under');
-      cy.get(`[data-cy="nome"]`).should('have.value', 'drat barring under');
+      cy.get(`[data-cy="nome"]`).type('riser bare formal');
+      cy.get(`[data-cy="nome"]`).should('have.value', 'riser bare formal');
 
-      cy.get(`[data-cy="nacionalidade"]`).select('FRANCA');
+      cy.get(`[data-cy="nacionalidade"]`).select('INGLATERRA');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

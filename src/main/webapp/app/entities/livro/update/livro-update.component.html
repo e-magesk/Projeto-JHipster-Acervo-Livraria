@@ -37,6 +37,23 @@
             }
           </select>
         </div>
+
+        <div class="mb-3">
+          <label for="field_autors" jhiTranslate="acervoLivrariaApp.livro.autor">Autor</label>
+          <select
+            class="form-control"
+            id="field_autors"
+            data-cy="autor"
+            multiple
+            name="autors"
+            formControlName="autors"
+            [compareWith]="compareAutor"
+          >
+            @for (autorOption of autorsSharedCollection; track $index) {
+              <option [ngValue]="autorOption">{{ autorOption.nome }}</option>
+            }
+          </select>
+        </div>
       </div>
 
       <div>

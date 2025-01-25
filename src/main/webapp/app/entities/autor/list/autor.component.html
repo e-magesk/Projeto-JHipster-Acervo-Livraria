@@ -54,12 +54,6 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="livro.titulo">
-              <div class="d-flex">
-                <span jhiTranslate="acervoLivrariaApp.autor.livro">Livro</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -82,13 +76,6 @@
                     INGLATERRA: 'INGLATERRA',
                   }[autor.nacionalidade ?? 'null']
                 }}
-              </td>
-              <td>
-                @if (autor.livro) {
-                  <div>
-                    <a [routerLink]="['/livro', autor.livro.id, 'view']">{{ autor.livro.titulo }}</a>
-                  </div>
-                }
               </td>
               <td class="text-end">
                 <div class="btn-group">

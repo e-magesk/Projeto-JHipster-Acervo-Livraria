@@ -102,7 +102,7 @@ export default tseslint.config(
       'guard-for-in': 'error',
       'no-bitwise': 'error',
       'no-caller': 'error',
-      'no-console': ['error', { allow: ['warn', 'error'] }],
+      'no-console': ['error', { allow: ['warn', 'error', 'log'] }],
       'no-eval': 'error',
       'no-labels': 'error',
       'no-new': 'error',

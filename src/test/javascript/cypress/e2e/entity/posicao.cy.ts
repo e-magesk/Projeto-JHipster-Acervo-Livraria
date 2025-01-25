@@ -15,7 +15,7 @@ describe('Posicao e2e test', () => {
   const posicaoPageUrlPattern = new RegExp('/posicao(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  const posicaoSample = { codigo: 'D0-0700-g4' };
+  const posicaoSample = { codigo: 'U3-7-m8950' };
 
   let posicao;
 
@@ -160,8 +160,8 @@ describe('Posicao e2e test', () => {
     });
 
     it('should create an instance of Posicao', () => {
-      cy.get(`[data-cy="codigo"]`).type('Q0-750217-r401514');
-      cy.get(`[data-cy="codigo"]`).should('have.value', 'Q0-750217-r401514');
+      cy.get(`[data-cy="codigo"]`).type('L4-354278-z1492');
+      cy.get(`[data-cy="codigo"]`).should('have.value', 'L4-354278-z1492');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

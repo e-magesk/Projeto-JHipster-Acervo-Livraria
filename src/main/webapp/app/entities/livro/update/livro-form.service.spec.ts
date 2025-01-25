@@ -22,6 +22,7 @@ describe('Livro Form Service', () => {
             id: expect.any(Object),
             titulo: expect.any(Object),
             genero: expect.any(Object),
+            autors: expect.any(Object),
           }),
         );
       });
@@ -34,6 +35,7 @@ describe('Livro Form Service', () => {
             id: expect.any(Object),
             titulo: expect.any(Object),
             genero: expect.any(Object),
+            autors: expect.any(Object),
           }),
         );
       });

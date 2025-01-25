@@ -42,14 +42,6 @@ public interface AutorService {
     Page<Autor> findAll(Pageable pageable);
 
     /**
-     * Get all the autors with eager load of many-to-many relationships.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
-    Page<Autor> findAllWithEagerRelationships(Pageable pageable);
-
-    /**
      * Get the "id" autor.
      *
      * @param id the id of the entity.

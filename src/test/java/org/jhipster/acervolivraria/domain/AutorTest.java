@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.jhipster.acervolivraria.domain.AutorTestSamples.*;
 import static org.jhipster.acervolivraria.domain.LivroTestSamples.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.jhipster.acervolivraria.web.rest.TestUtil;
 import org.junit.jupiter.api.Test;
 
@@ -28,10 +30,20 @@ class AutorTest {
         Autor autor = getAutorRandomSampleGenerator();
         Livro livroBack = getLivroRandomSampleGenerator();
 
-        autor.setLivro(livroBack);
-        assertThat(autor.getLivro()).isEqualTo(livroBack);
+        autor.addLivro(livroBack);
+        assertThat(autor.getLivros()).containsOnly(livroBack);
+        assertThat(livroBack.getAutors()).containsOnly(autor);
 
-        autor.livro(null);
-        assertThat(autor.getLivro()).isNull();
+        autor.removeLivro(livroBack);
+        assertThat(autor.getLivros()).doesNotContain(livroBack);
+        assertThat(livroBack.getAutors()).doesNotContain(autor);
+
+        autor.livros(new HashSet<>(Set.of(livroBack)));
+        assertThat(autor.getLivros()).containsOnly(livroBack);
+        assertThat(livroBack.getAutors()).containsOnly(autor);
+
+        autor.setLivros(new HashSet<>());
+        assertThat(autor.getLivros()).doesNotContain(livroBack);
+        assertThat(livroBack.getAutors()).doesNotContain(autor);
     }
 }

@@ -37,9 +37,16 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_livro" jhiTranslate="acervoLivrariaApp.autor.livro">Livro</label>
-          <select class="form-control" id="field_livro" data-cy="livro" name="livro" formControlName="livro" [compareWith]="compareLivro">
-            <option [ngValue]="null"></option>
+          <label for="field_livros" jhiTranslate="acervoLivrariaApp.autor.livro">Livro</label>
+          <select
+            class="form-control"
+            id="field_livros"
+            data-cy="livro"
+            multiple
+            name="livros"
+            formControlName="livros"
+            [compareWith]="compareLivro"
+          >
             @for (livroOption of livrosSharedCollection; track $index) {
               <option [ngValue]="livroOption">{{ livroOption.titulo }}</option>
             }

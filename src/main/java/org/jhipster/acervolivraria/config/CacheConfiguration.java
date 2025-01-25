@@ -58,6 +58,7 @@ public class CacheConfiguration {
             createCache(cm, org.jhipster.acervolivraria.domain.Posicao.class.getName());
             createCache(cm, org.jhipster.acervolivraria.domain.Venda.class.getName());
             createCache(cm, org.jhipster.acervolivraria.domain.Compra.class.getName());
+            createCache(cm, org.jhipster.acervolivraria.domain.Autor.class.getName() + ".livros");
             // jhipster-needle-ehcache-add-entry
         };
     }

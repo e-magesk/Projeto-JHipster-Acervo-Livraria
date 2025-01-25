@@ -49,12 +49,12 @@ describe('Autor Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Livro query and add missing value', () => {
       const autor: IAutor = { id: 27814 };
-      const livro: ILivro = { id: 16172 };
-      autor.livro = livro;
+      const livros: ILivro[] = [{ id: 16172 }];
+      autor.livros = livros;
 
       const livroCollection: ILivro[] = [{ id: 16172 }];
       jest.spyOn(livroService, 'query').mockReturnValue(of(new HttpResponse({ body: livroCollection })));
-      const additionalLivros = [livro];
+      const additionalLivros = [...livros];
       const expectedCollection: ILivro[] = [...additionalLivros, ...livroCollection];
       jest.spyOn(livroService, 'addLivroToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -72,7 +72,7 @@ describe('Autor Management Update Component', () => {
     it('Should update editForm', () => {
       const autor: IAutor = { id: 27814 };
       const livro: ILivro = { id: 16172 };
-      autor.livro = livro;
+      autor.livros = [livro];
 
       activatedRoute.data = of({ autor });
       comp.ngOnInit();

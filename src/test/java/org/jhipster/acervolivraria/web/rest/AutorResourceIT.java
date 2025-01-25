@@ -4,30 +4,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.jhipster.acervolivraria.domain.AutorAsserts.*;
 import static org.jhipster.acervolivraria.web.rest.TestUtil.createUpdateProxyForBean;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.jhipster.acervolivraria.IntegrationTest;
 import org.jhipster.acervolivraria.domain.Autor;
 import org.jhipster.acervolivraria.domain.enumeration.Nacionalidade;
 import org.jhipster.acervolivraria.repository.AutorRepository;
-import org.jhipster.acervolivraria.service.AutorService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link AutorResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class AutorResourceIT {
@@ -59,12 +50,6 @@ class AutorResourceIT {
 
     @Autowired
     private AutorRepository autorRepository;
-
-    @Mock
-    private AutorRepository autorRepositoryMock;
-
-    @Mock
-    private AutorService autorServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -162,23 +147,6 @@ class AutorResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(autor.getId().intValue())))
             .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME)))
             .andExpect(jsonPath("$.[*].nacionalidade").value(hasItem(DEFAULT_NACIONALIDADE.toString())));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllAutorsWithEagerRelationshipsIsEnabled() throws Exception {
-        when(autorServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restAutorMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(autorServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllAutorsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(autorServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restAutorMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
-        verify(autorRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -291,8 +259,6 @@ class AutorResourceIT {
         // Update the autor using partial update
         Autor partialUpdatedAutor = new Autor();
         partialUpdatedAutor.setId(autor.getId());
-
-        partialUpdatedAutor.nacionalidade(UPDATED_NACIONALIDADE);
 
         restAutorMockMvc
             .perform(

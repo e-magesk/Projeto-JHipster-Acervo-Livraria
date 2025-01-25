@@ -5,7 +5,7 @@ export interface IAutor {
   id: number;
   nome?: string | null;
   nacionalidade?: keyof typeof Nacionalidade | null;
-  livro?: ILivro | null;
+  livros?: ILivro[] | null;
 }
 
 export type NewAutor = Omit<IAutor, 'id'> & { id: null };

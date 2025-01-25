@@ -15,7 +15,7 @@ describe('Edicao e2e test', () => {
   const edicaoPageUrlPattern = new RegExp('/edicao(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  const edicaoSample = { editora: 'yawn but', dataLancamento: '2025-01-24', quantidadeExemplares: 24205, preco: 22296.02 };
+  const edicaoSample = { editora: 'furthermore fooey', dataLancamento: '2025-01-25', quantidadeExemplares: 4505, preco: 1561.55 };
 
   let edicao;
 
@@ -160,18 +160,18 @@ describe('Edicao e2e test', () => {
     });
 
     it('should create an instance of Edicao', () => {
-      cy.get(`[data-cy="editora"]`).type('yet putrefy');
-      cy.get(`[data-cy="editora"]`).should('have.value', 'yet putrefy');
+      cy.get(`[data-cy="editora"]`).type('oblong');
+      cy.get(`[data-cy="editora"]`).should('have.value', 'oblong');
 
-      cy.get(`[data-cy="dataLancamento"]`).type('2025-01-24');
+      cy.get(`[data-cy="dataLancamento"]`).type('2025-01-25');
       cy.get(`[data-cy="dataLancamento"]`).blur();
-      cy.get(`[data-cy="dataLancamento"]`).should('have.value', '2025-01-24');
+      cy.get(`[data-cy="dataLancamento"]`).should('have.value', '2025-01-25');
 
-      cy.get(`[data-cy="quantidadeExemplares"]`).type('29508');
-      cy.get(`[data-cy="quantidadeExemplares"]`).should('have.value', '29508');
+      cy.get(`[data-cy="quantidadeExemplares"]`).type('29712');
+      cy.get(`[data-cy="quantidadeExemplares"]`).should('have.value', '29712');
 
-      cy.get(`[data-cy="preco"]`).type('2898.05');
-      cy.get(`[data-cy="preco"]`).should('have.value', '2898.05');
+      cy.get(`[data-cy="preco"]`).type('5043.58');
+      cy.get(`[data-cy="preco"]`).should('have.value', '5043.58');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

@@ -35,10 +35,11 @@
           </dd>
           <dt><span jhiTranslate="acervoLivrariaApp.autor.livro">Livro</span></dt>
           <dd>
-            @if (autor()!.livro) {
-              <div>
-                <a [routerLink]="['/livro', autor()!.livro?.id, 'view']">{{ autorRef.livro?.titulo }}</a>
-              </div>
+            @for (livro of autorRef.livros; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/livro', livro.id, 'view']">{{ livro?.titulo }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
             }
           </dd>
         </dl>

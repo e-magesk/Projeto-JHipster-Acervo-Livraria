@@ -26,11 +26,12 @@
       "relationshipType": "one-to-many"
     },
     {
+      "otherEntityField": "nome",
       "otherEntityName": "autor",
       "otherEntityRelationshipName": "livro",
       "relationshipName": "autor",
       "relationshipSide": "left",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-many"
     }
   ],
   "searchEngine": "no",

@@ -3,6 +3,8 @@ package org.jhipster.acervolivraria.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jhipster.acervolivraria.domain.enumeration.Nacionalidade;
@@ -31,9 +33,10 @@ public class Autor implements Serializable {
     @Column(name = "nacionalidade")
     private Nacionalidade nacionalidade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "autors")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "edicaos", "autors" }, allowSetters = true)
-    private Livro livro;
+    private Set<Livro> livros = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -76,16 +79,34 @@ public class Autor implements Serializable {
         this.nacionalidade = nacionalidade;
     }
 
-    public Livro getLivro() {
-        return this.livro;
+    public Set<Livro> getLivros() {
+        return this.livros;
     }
 
-    public void setLivro(Livro livro) {
-        this.livro = livro;
+    public void setLivros(Set<Livro> livros) {
+        if (this.livros != null) {
+            this.livros.forEach(i -> i.removeAutor(this));
+        }
+        if (livros != null) {
+            livros.forEach(i -> i.addAutor(this));
+        }
+        this.livros = livros;
     }
 
-    public Autor livro(Livro livro) {
-        this.setLivro(livro);
+    public Autor livros(Set<Livro> livros) {
+        this.setLivros(livros);
+        return this;
+    }
+
+    public Autor addLivro(Livro livro) {
+        this.livros.add(livro);
+        livro.getAutors().add(this);
+        return this;
+    }
+
+    public Autor removeLivro(Livro livro) {
+        this.livros.remove(livro);
+        livro.getAutors().remove(this);
         return this;
     }
 

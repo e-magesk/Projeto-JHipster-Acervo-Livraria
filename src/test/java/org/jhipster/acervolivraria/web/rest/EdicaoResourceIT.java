@@ -379,7 +379,7 @@ class EdicaoResourceIT {
         Edicao partialUpdatedEdicao = new Edicao();
         partialUpdatedEdicao.setId(edicao.getId());
 
-        partialUpdatedEdicao.dataLancamento(UPDATED_DATA_LANCAMENTO).quantidadeExemplares(UPDATED_QUANTIDADE_EXEMPLARES);
+        partialUpdatedEdicao.editora(UPDATED_EDITORA).preco(UPDATED_PRECO);
 
         restEdicaoMockMvc
             .perform(

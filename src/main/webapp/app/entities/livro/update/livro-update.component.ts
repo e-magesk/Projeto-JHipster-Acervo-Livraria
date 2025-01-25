@@ -2,14 +2,16 @@ import { Component, OnInit, inject } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { IAutor } from 'app/entities/autor/autor.model';
+import { AutorService } from 'app/entities/autor/service/autor.service';
 import { Genero } from 'app/entities/enumerations/genero.model';
-import { ILivro } from '../livro.model';
 import { LivroService } from '../service/livro.service';
+import { ILivro } from '../livro.model';
 import { LivroFormGroup, LivroFormService } from './livro-form.service';
 
 @Component({
@@ -22,12 +24,17 @@ export class LivroUpdateComponent implements OnInit {
   livro: ILivro | null = null;
   generoValues = Object.keys(Genero);
 
+  autorsSharedCollection: IAutor[] = [];
+
   protected livroService = inject(LivroService);
   protected livroFormService = inject(LivroFormService);
+  protected autorService = inject(AutorService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: LivroFormGroup = this.livroFormService.createLivroFormGroup();
+
+  compareAutor = (o1: IAutor | null, o2: IAutor | null): boolean => this.autorService.compareAutor(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ livro }) => {
@@ -35,6 +42,8 @@ export class LivroUpdateComponent implements OnInit {
       if (livro) {
         this.updateForm(livro);
       }
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -74,5 +83,18 @@ export class LivroUpdateComponent implements OnInit {
   protected updateForm(livro: ILivro): void {
     this.livro = livro;
     this.livroFormService.resetForm(this.editForm, livro);
+
+    this.autorsSharedCollection = this.autorService.addAutorToCollectionIfMissing<IAutor>(
+      this.autorsSharedCollection,
+      ...(livro.autors ?? []),
+    );
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.autorService
+      .query()
+      .pipe(map((res: HttpResponse<IAutor[]>) => res.body ?? []))
+      .pipe(map((autors: IAutor[]) => this.autorService.addAutorToCollectionIfMissing<IAutor>(autors, ...(this.livro?.autors ?? []))))
+      .subscribe((autors: IAutor[]) => (this.autorsSharedCollection = autors));
   }
 }

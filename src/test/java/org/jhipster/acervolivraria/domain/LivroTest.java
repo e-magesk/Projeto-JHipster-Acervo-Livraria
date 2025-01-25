@@ -55,18 +55,14 @@ class LivroTest {
 
         livro.addAutor(autorBack);
         assertThat(livro.getAutors()).containsOnly(autorBack);
-        assertThat(autorBack.getLivro()).isEqualTo(livro);
 
         livro.removeAutor(autorBack);
         assertThat(livro.getAutors()).doesNotContain(autorBack);
-        assertThat(autorBack.getLivro()).isNull();
 
         livro.autors(new HashSet<>(Set.of(autorBack)));
         assertThat(livro.getAutors()).containsOnly(autorBack);
-        assertThat(autorBack.getLivro()).isEqualTo(livro);
 
         livro.setAutors(new HashSet<>());
         assertThat(livro.getAutors()).doesNotContain(autorBack);
-        assertThat(autorBack.getLivro()).isNull();
     }
 }
