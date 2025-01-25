@@ -55,4 +55,11 @@ public interface CompraService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Get the sum of all compras.
+     *
+     * @return the sum of all compras.
+     */
+    Double getTotalSum();
 }

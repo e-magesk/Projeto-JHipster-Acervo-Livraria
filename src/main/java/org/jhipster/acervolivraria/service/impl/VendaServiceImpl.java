@@ -1,5 +1,6 @@
 package org.jhipster.acervolivraria.service.impl;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import org.jhipster.acervolivraria.domain.Venda;
 import org.jhipster.acervolivraria.repository.EdicaoRepository;
@@ -94,5 +95,16 @@ public class VendaServiceImpl implements VendaService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Double getTotalSum() {
+        LOG.debug("Request to get the sum of all Vendas");
+        ArrayList<Venda> vendas = (ArrayList<Venda>) vendaRepository.findAll();
+        Double totalSum = 0.0;
+        for (Venda venda : vendas) {
+            totalSum += venda.getValorTotal();
+        }
+        return totalSum;
     }
 }

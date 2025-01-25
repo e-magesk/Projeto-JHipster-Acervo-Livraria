@@ -12,6 +12,7 @@ import { EdicaoService } from 'app/entities/edicao/service/edicao.service';
 import { ICompra } from '../compra.model';
 import { CompraService } from '../service/compra.service';
 import { CompraFormGroup, CompraFormService } from './compra-form.service';
+import { TrackUpdatesService } from '../../../shared/sharedServices/trackUpdatesService.service';
 
 @Component({
   selector: 'jhi-compra-update',
@@ -28,6 +29,7 @@ export class CompraUpdateComponent implements OnInit {
   protected compraFormService = inject(CompraFormService);
   protected edicaoService = inject(EdicaoService);
   protected activatedRoute = inject(ActivatedRoute);
+  protected trackUpdatesService = inject(TrackUpdatesService);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: CompraFormGroup = this.compraFormService.createCompraFormGroup();
@@ -80,6 +82,7 @@ export class CompraUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
+    this.trackUpdatesService.emitSaldoUpdate();
     this.previousState();
   }
 

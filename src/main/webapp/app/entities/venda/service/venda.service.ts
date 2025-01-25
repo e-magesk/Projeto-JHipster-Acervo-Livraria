@@ -71,4 +71,8 @@ export class VendaService {
     }
     return vendaCollection;
   }
+
+  getSumVendas(): Observable<HttpResponse<number>> {
+    return this.http.get<number>(`${this.resourceUrl}/totalSum`, { observe: 'response' });
+  }
 }

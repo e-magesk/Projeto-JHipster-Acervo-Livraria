@@ -64,4 +64,11 @@ public interface VendaService {
      * @return a boolean indicating if the sale is valid.
      */
     boolean verifyVenda(Venda venda);
+
+    /**
+     * Get the sum of all vendas.
+     *
+     * @return the sum of all vendas.
+     */
+    Double getTotalSum();
 }

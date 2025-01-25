@@ -13,6 +13,11 @@ import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
 import { environment } from 'environments/environment';
 import ActiveMenuDirective from './active-menu.directive';
 import NavbarItem from './navbar-item.model';
+import { Subscription } from 'rxjs';
+import { TrackUpdatesService } from '../../shared/sharedServices/trackUpdatesService.service';
+import { faCoins, faScaleUnbalanced } from '@fortawesome/free-solid-svg-icons';
+import { VendaService } from '../../entities/venda/service/venda.service';
+import { CompraService } from '../../entities/compra/service/compra.service';
 
 @Component({
   selector: 'jhi-navbar',
@@ -28,12 +33,22 @@ export default class NavbarComponent implements OnInit {
   version = '';
   account = inject(AccountService).trackCurrentAccount();
   entitiesNavbarItems: NavbarItem[] = [];
+  saldo = 0;
+  subscription!: Subscription;
+  coins = faCoins;
+  icons = {
+    coins: faCoins,
+    scaleUnbalanced: faScaleUnbalanced,
+  };
 
   private readonly loginService = inject(LoginService);
   private readonly translateService = inject(TranslateService);
   private readonly stateStorageService = inject(StateStorageService);
   private readonly profileService = inject(ProfileService);
   private readonly router = inject(Router);
+  private readonly trackUpdatesService = inject(TrackUpdatesService);
+  private readonly compraService = inject(CompraService);
+  private readonly vendaService = inject(VendaService);
 
   constructor() {
     const { VERSION } = environment;
@@ -47,6 +62,9 @@ export default class NavbarComponent implements OnInit {
     this.profileService.getProfileInfo().subscribe(profileInfo => {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
+    });
+    this.subscription = this.trackUpdatesService.trackUpdateSaldo$.subscribe(() => {
+      this.updateSaldo();
     });
   }
 
@@ -71,5 +89,13 @@ export default class NavbarComponent implements OnInit {
 
   toggleNavbar(): void {
     this.isNavbarCollapsed.update(isNavbarCollapsed => !isNavbarCollapsed);
+  }
+
+  updateSaldo(): void {
+    this.vendaService.getSumVendas().subscribe(vendas => {
+      this.compraService.getSumCompras().subscribe(compras => {
+        this.saldo = vendas.body! - compras.body!;
+      });
+    });
   }
 }

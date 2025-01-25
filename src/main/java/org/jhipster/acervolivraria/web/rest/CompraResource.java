@@ -176,4 +176,14 @@ public class CompraResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    /**
+     * {@code GET  /totalSum} : get the sum of all compras.
+     */
+    @GetMapping("/totalSum")
+    public ResponseEntity<Double> getTotalSum() {
+        LOG.debug("REST request to get the sum of all compras");
+        Double totalSum = compraService.getTotalSum();
+        return ResponseEntity.ok().body(totalSum);
+    }
 }

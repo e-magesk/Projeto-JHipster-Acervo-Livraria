@@ -1,5 +1,6 @@
 package org.jhipster.acervolivraria.service.impl;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import org.jhipster.acervolivraria.domain.Compra;
 import org.jhipster.acervolivraria.repository.CompraRepository;
@@ -85,5 +86,16 @@ public class CompraServiceImpl implements CompraService {
     public void delete(Long id) {
         LOG.debug("Request to delete Compra : {}", id);
         compraRepository.deleteById(id);
+    }
+
+    @Override
+    public Double getTotalSum() {
+        LOG.debug("Request to get the sum of all compras");
+        ArrayList<Compra> compras = (ArrayList<Compra>) compraRepository.findAll();
+        Double totalSum = 0.0;
+        for (Compra compra : compras) {
+            totalSum += compra.getValorTotal();
+        }
+        return totalSum;
     }
 }

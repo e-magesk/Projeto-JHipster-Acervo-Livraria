@@ -71,4 +71,8 @@ export class CompraService {
     }
     return compraCollection;
   }
+
+  getSumCompras(): Observable<HttpResponse<number>> {
+    return this.http.get<number>(`${this.resourceUrl}/totalSum`, { observe: 'response' });
+  }
 }

@@ -12,6 +12,7 @@ import { EdicaoService } from 'app/entities/edicao/service/edicao.service';
 import { IVenda } from '../venda.model';
 import { VendaService } from '../service/venda.service';
 import { VendaFormGroup, VendaFormService } from './venda-form.service';
+import { TrackUpdatesService } from '../../../shared/sharedServices/trackUpdatesService.service';
 
 @Component({
   selector: 'jhi-venda-update',
@@ -28,6 +29,7 @@ export class VendaUpdateComponent implements OnInit {
   protected vendaFormService = inject(VendaFormService);
   protected edicaoService = inject(EdicaoService);
   protected activatedRoute = inject(ActivatedRoute);
+  protected trackUpdatesService = inject(TrackUpdatesService);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: VendaFormGroup = this.vendaFormService.createVendaFormGroup();
@@ -80,6 +82,7 @@ export class VendaUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
+    this.trackUpdatesService.emitSaldoUpdate();
     this.previousState();
   }
 

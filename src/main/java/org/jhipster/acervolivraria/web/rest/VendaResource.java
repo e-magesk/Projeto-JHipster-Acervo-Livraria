@@ -169,6 +169,16 @@ public class VendaResource {
     }
 
     /**
+     * {@code GET  /totalSum} : get the sum of all vendas.
+     */
+    @GetMapping("/totalSum")
+    public ResponseEntity<Double> getTotalSum() {
+        LOG.debug("REST request to get the sum of all vendas");
+        Double totalSum = vendaService.getTotalSum();
+        return ResponseEntity.ok().body(totalSum);
+    }
+
+    /**
      * {@code DELETE  /vendas/:id} : delete the "id" venda.
      *
      * @param id the id of the venda to delete.
