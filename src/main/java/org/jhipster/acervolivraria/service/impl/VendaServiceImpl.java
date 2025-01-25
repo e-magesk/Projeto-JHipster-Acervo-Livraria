@@ -2,10 +2,12 @@ package org.jhipster.acervolivraria.service.impl;
 
 import java.util.Optional;
 import org.jhipster.acervolivraria.domain.Venda;
+import org.jhipster.acervolivraria.repository.EdicaoRepository;
 import org.jhipster.acervolivraria.repository.VendaRepository;
 import org.jhipster.acervolivraria.service.VendaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class VendaServiceImpl implements VendaService {
     private static final Logger LOG = LoggerFactory.getLogger(VendaServiceImpl.class);
 
     private final VendaRepository vendaRepository;
+
+    @Autowired
+    private EdicaoRepository edicaoRepository;
 
     public VendaServiceImpl(VendaRepository vendaRepository) {
         this.vendaRepository = vendaRepository;
@@ -78,5 +83,16 @@ public class VendaServiceImpl implements VendaService {
     public void delete(Long id) {
         LOG.debug("Request to delete Venda : {}", id);
         vendaRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean verifyVenda(Venda venda) {
+        LOG.debug("Request to verify if Venda is valid : {}", venda);
+        if (venda.getQuantidade() != null && venda.getEdicao().getQuantidadeExemplares() >= venda.getQuantidade()) {
+            venda.getEdicao().setQuantidadeExemplares(venda.getEdicao().getQuantidadeExemplares() - venda.getQuantidade());
+            this.edicaoRepository.save(venda.getEdicao());
+            return true;
+        }
+        return false;
     }
 }

@@ -3,7 +3,7 @@
     <div [ngClass]="setClasses(alert)">
       @if (alert.message) {
         <ngb-alert [type]="alert.type" (closed)="close(alert)">
-          <pre [innerHTML]="alert.message"></pre>
+          <pre [innerHTML]="alert.translationKey"></pre>
         </ngb-alert>
       }
     </div>

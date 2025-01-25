@@ -45,8 +45,9 @@ export class EdicaoUpdateComponent implements OnInit {
       this.edicao = edicao;
       if (edicao) {
         this.updateForm(edicao);
+      } else {
+        this.editForm.patchValue({ quantidadeExemplares: 0 });
       }
-
       this.loadRelationshipsOptions();
     });
   }

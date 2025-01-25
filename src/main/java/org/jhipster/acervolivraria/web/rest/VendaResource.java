@@ -60,6 +60,14 @@ public class VendaResource {
         if (venda.getId() != null) {
             throw new BadRequestAlertException("A new venda cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (!vendaService.verifyVenda(venda)) {
+            throw new BadRequestAlertException(
+                "Venda inválida",
+                ENTITY_NAME,
+                "Venda inválida pois a quantidade de edições disponíveis é insuficiente. <br> Limite disponível: " +
+                venda.getEdicao().getQuantidadeExemplares()
+            );
+        }
         venda = vendaService.save(venda);
         return ResponseEntity.created(new URI("/api/vendas/" + venda.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, venda.getId().toString()))

@@ -3,9 +3,11 @@ package org.jhipster.acervolivraria.service.impl;
 import java.util.Optional;
 import org.jhipster.acervolivraria.domain.Compra;
 import org.jhipster.acervolivraria.repository.CompraRepository;
+import org.jhipster.acervolivraria.repository.EdicaoRepository;
 import org.jhipster.acervolivraria.service.CompraService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class CompraServiceImpl implements CompraService {
 
     private final CompraRepository compraRepository;
 
+    @Autowired
+    private EdicaoRepository edicaoRepository;
+
     public CompraServiceImpl(CompraRepository compraRepository) {
         this.compraRepository = compraRepository;
     }
@@ -29,6 +34,8 @@ public class CompraServiceImpl implements CompraService {
     @Override
     public Compra save(Compra compra) {
         LOG.debug("Request to save Compra : {}", compra);
+        compra.getEdicao().setQuantidadeExemplares(compra.getEdicao().getQuantidadeExemplares() + compra.getQuantidade());
+        this.edicaoRepository.save(compra.getEdicao());
         return compraRepository.save(compra);
     }
 

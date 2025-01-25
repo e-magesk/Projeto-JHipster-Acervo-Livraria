@@ -55,4 +55,13 @@ public interface VendaService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Verify if a venda its valid.
+     * The verification is made by checking if the quantity of the book editions are enough to make the sale.
+     *
+     * @param venda the entity to verify.
+     * @return a boolean indicating if the sale is valid.
+     */
+    boolean verifyVenda(Venda venda);
 }
