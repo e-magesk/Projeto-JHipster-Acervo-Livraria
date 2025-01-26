@@ -35,12 +35,29 @@ public class LivroServiceImpl implements LivroService {
     @Override
     public Livro save(Livro livro) {
         LOG.debug("Request to save Livro : {}", livro);
+        Livro aux = livroRepository.save(livro);
+        for (Autor autor : aux.getAutors()) {
+            livro.addAutor(autor);
+        }
+        for (Autor autor : livro.getAutors()) {
+            autor.addLivro(livro);
+            this.autorService.update(autor);
+        }
+
         return livroRepository.save(livro);
     }
 
     @Override
     public Livro update(Livro livro) {
         LOG.debug("Request to update Livro : {}", livro);
+        Livro aux = livroRepository.getOne(livro.getId());
+        for (Autor autor : aux.getAutors()) {
+            livro.addAutor(autor);
+        }
+        for (Autor autor : livro.getAutors()) {
+            autor.addLivro(livro);
+            this.autorService.update(autor);
+        }
         return livroRepository.save(livro);
     }
 
