@@ -10,4 +10,5 @@ public enum Nacionalidade {
     DINAMARCA,
     FRANCA,
     INGLATERRA,
+    ESTADOS_UNIDOS,
 }

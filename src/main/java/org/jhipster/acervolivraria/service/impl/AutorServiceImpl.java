@@ -35,6 +35,14 @@ public class AutorServiceImpl implements AutorService {
     @Override
     public Autor save(Autor autor) {
         LOG.debug("Request to save Autor : {}", autor);
+        Autor aux = autorRepository.save(autor);
+        for (Livro livro : aux.getLivros()) {
+            autor.addLivro(livro);
+        }
+        for (Livro livro : autor.getLivros()) {
+            livro.addAutor(autor);
+            livroRepository.save(livro);
+        }
         return autorRepository.save(autor);
     }
 
